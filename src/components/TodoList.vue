@@ -44,8 +44,6 @@ function handleTouchMove(event) {
         event.target.style.position = "absolute";
         event.target.style.width = "18rem";
         event.target.style.top = pageY.value - 50 + "px";
-        console.log(pageY.value);
-        console.log(event);
     }
 }
 
