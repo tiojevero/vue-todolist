@@ -3,6 +3,10 @@ import { ref } from "vue";
 import { useStore } from "vuex";
 import VueFeather from "vue-feather";
 
+defineProps({
+    items: Array,
+});
+
 const store = useStore();
 
 const pageX = ref(0);
@@ -23,32 +27,29 @@ function handleTouchMove(event) {
     pageY.value = touchLocation.pageY;
     event.target.style.position = "absolute";
     event.target.style.width = "16rem";
-    event.target.style.left = pageX.value - 130 + "px";
     event.target.style.top = pageY.value - 50 + "px";
     console.log(pageY.value);
 }
 
 function handleTouchEnd(item) {
+    const dropzone1El = document.querySelector("#dropzone1");
+    const dropzone2El = document.querySelector("#dropzone2");
+    const dropzone3El = document.querySelector("#dropzone3");
+
     const dropzone1 = {
-        x: document.querySelector("#dropzone1").offsetLeft,
-        y: document.querySelector("#dropzone1").offsetTop,
-        y2:
-            document.querySelector("#dropzone1").offsetTop +
-            document.querySelector("#dropzone1").offsetHeight,
+        x: dropzone1El.offsetLeft,
+        y: dropzone1El.offsetTop,
+        y2: dropzone1El.offsetTop + dropzone1El.offsetHeight,
     };
     const dropzone2 = {
-        x: document.querySelector("#dropzone2").offsetLeft,
-        y: document.querySelector("#dropzone2").offsetTop,
-        y2:
-            document.querySelector("#dropzone2").offsetTop +
-            document.querySelector("#dropzone2").offsetHeight,
+        x: dropzone2El.offsetLeft,
+        y: dropzone2El.offsetTop,
+        y2: dropzone2El.offsetTop + dropzone2El.offsetHeight,
     };
     const dropzone3 = {
-        x: document.querySelector("#dropzone3").offsetLeft,
-        y: document.querySelector("#dropzone3").offsetTop,
-        y2:
-            document.querySelector("#dropzone3").offsetTop +
-            document.querySelector("#dropzone3").offsetHeight,
+        x: dropzone3El.offsetLeft,
+        y: dropzone3El.offsetTop,
+        y2: dropzone3El.offsetTop + dropzone3El.offsetHeight,
     };
     if (pageY.value > dropzone1.y && pageY.value < dropzone1.y2) {
         const payload = {
@@ -74,10 +75,6 @@ function handleTouchEnd(item) {
 function removeItem(id) {
     store.commit("REMOVE_ITEM", id);
 }
-
-defineProps({
-    items: Array,
-});
 </script>
 
 <template>
