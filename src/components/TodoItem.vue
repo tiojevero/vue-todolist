@@ -9,6 +9,9 @@ defineProps({
 
 const store = useStore();
 
+const showForm = ref(false);
+const title = ref("");
+
 const pageX = ref(0);
 const pageY = ref(0);
 
@@ -22,13 +25,16 @@ function startDrag(event, item) {
 }
 
 function handleTouchMove(event) {
-    const touchLocation = event.targetTouches[0];
-    pageX.value = touchLocation.pageX;
-    pageY.value = touchLocation.pageY;
-    event.target.style.position = "absolute";
-    event.target.style.width = "16rem";
-    event.target.style.top = pageY.value - 50 + "px";
-    console.log(pageY.value);
+    if (event.target.localName !== "span") {
+        const touchLocation = event.targetTouches[0];
+        pageX.value = touchLocation.pageX;
+        pageY.value = touchLocation.pageY;
+        event.target.style.position = "absolute";
+        event.target.style.width = "16rem";
+        event.target.style.top = pageY.value - 50 + "px";
+        console.log(pageY.value);
+        console.log(event);
+    }
 }
 
 function handleTouchEnd(item) {
@@ -72,6 +78,20 @@ function handleTouchEnd(item) {
     }
 }
 
+function toggleForm(titleName) {
+    showForm.value = !showForm.value;
+    title.value = titleName;
+}
+
+function editItem(id) {
+    const payload = {
+        id: id,
+        title: title.value,
+    };
+    store.commit("EDIT_ITEM", payload);
+    toggleForm();
+}
+
 function removeItem(id) {
     store.commit("REMOVE_ITEM", id);
 }
@@ -79,7 +99,7 @@ function removeItem(id) {
 
 <template>
     <div
-        :class="`rounded-lg overflow-hidden border bg-white flex justify-between px-4 py-2 mb-2 cursor-grab touch-none overscroll-y-contain ${
+        :class="`rounded-lg overflow-hidden border bg-white flex justify-between px-3 py-2 mb-2 cursor-grab touch-none overscroll-y-contain ${
             item.list === 3 ? 'line-through text-gray-600' : ''
         }`"
         v-for="item in items"
@@ -89,14 +109,38 @@ function removeItem(id) {
         @touchmove="handleTouchMove($event)"
         @touchend="handleTouchEnd(item)"
     >
-        <span class="self-center">
+        <div class="flex w-full" v-if="showForm">
+            <input
+                type="text"
+                class="bg-gray-100 border focus:border-blue-500 rounded outline-none px-2 mr-2 w-full"
+                placeholder="title"
+                autofocus
+                v-model="title"
+                @keyup.enter="editItem(item.id)"
+            />
+            <button
+                class="bg-blue-500 text-white rounded px-2"
+                @click="editItem(item.id)"
+            >
+                Save
+            </button>
+        </div>
+        <span class="self-center" v-if="!showForm">
             {{ item.title }}
         </span>
-        <button
-            class="pointer flex text-gray-500 hover:bg-red-50 hover:text-red-500 rounded p-1"
-            @click="removeItem(item.id)"
-        >
-            <vue-feather type="trash-2" size="16px"></vue-feather>
-        </button>
+        <div class="flex gap-2" v-if="!showForm">
+            <button
+                class="pointer flex text-gray-500 hover:bg-blue-50 hover:text-blue-500 rounded p-1"
+                @click="toggleForm(item.title)"
+            >
+                <vue-feather type="edit" size="16px"></vue-feather>
+            </button>
+            <button
+                class="pointer flex text-gray-500 hover:bg-red-50 hover:text-red-500 rounded p-1"
+                @click="removeItem(item.id)"
+            >
+                <vue-feather type="trash-2" size="16px"></vue-feather>
+            </button>
+        </div>
     </div>
 </template>

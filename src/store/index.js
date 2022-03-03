@@ -22,12 +22,6 @@ const store = createStore({
             const item = state.items.find((item) => item.id == payload.item.id);
             item.list = payload.list;
         },
-        REMOVE_ITEM(state, id) {
-            const itemIndex = state.items.findIndex((item) => {
-                return item.id === id;
-            });
-            state.items.splice(itemIndex, 1);
-        },
         ADD_ITEM(state, payload) {
             const lastItem =
                 state.items.length > 0 ? state.items.slice(-1).pop() : 1;
@@ -37,6 +31,16 @@ const store = createStore({
                 list: payload.list,
             };
             state.items.push(newItem);
+        },
+        EDIT_ITEM(state, payload) {
+            const item = state.items.find((item) => item.id == payload.id);
+            item.title = payload.title;
+        },
+        REMOVE_ITEM(state, id) {
+            const itemIndex = state.items.findIndex((item) => {
+                return item.id === id;
+            });
+            state.items.splice(itemIndex, 1);
         },
     },
 });
