@@ -8,7 +8,7 @@
 | Bundler          | Vite       |
 
 ### How to run
-```bash
+```bash:
   pnpm install
   pnpm run dev
 ```
