@@ -79,7 +79,7 @@ function removeItem(id) {
 
 <template>
     <div
-        :class="`rounded-lg overflow-hidden border bg-white flex justify-between px-4 py-2 mb-2 cursor-grab ${
+        :class="`rounded-lg overflow-hidden border bg-white flex justify-between px-4 py-2 mb-2 cursor-grab touch-none overscroll-y-contain ${
             item.list === 3 ? 'line-through text-gray-600' : ''
         }`"
         v-for="item in items"
