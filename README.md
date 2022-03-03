@@ -19,7 +19,7 @@
   
   # yarn 
   yarn
-  yarn run dev
+  yarn dev
 ```
 
 ### Demo
