@@ -42,6 +42,7 @@ function addItem(list) {
             type="text"
             placeholder="Type item title here"
             class="border border-gray-400 focus:border-blue-500 outline-none rounded-lg px-3 py-2 w-full mr-2"
+            autofocus
             v-model="title"
             @keyup.enter="addItem(list)"
         />
