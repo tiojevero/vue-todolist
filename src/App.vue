@@ -6,7 +6,7 @@ import TodoList from "./components/TodoList.vue";
 
 <template>
     <div class="h-screen bg-gray-200 py-5">
-        <div class="container mx-auto">
+        <div class="container mx-auto px-4">
             <h1 class="text-3xl font-bold mb-6 flex">Vue Todo List</h1>
             <TodoList />
         </div>

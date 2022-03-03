@@ -24,7 +24,7 @@ defineProps({
 
 <template>
     <div
-        :class="`rounded-lg border bg-white flex justify-between px-4 py-2 mb-2 cursor-grab ${
+        :class="`rounded-lg overflow-hidden border bg-white flex justify-between px-4 py-2 mb-2 cursor-grab ${
             item.list === 3 ? 'line-through text-gray-600' : ''
         }`"
         v-for="item in items"

@@ -54,8 +54,9 @@ function addItem(list) {
                 Cancel
             </button>
             <button
-                class="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg px-4 py-2"
+                class="bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed text-white font-semibold rounded-lg px-4 py-2"
                 @click="addItem(list)"
+                :disabled="!title"
             >
                 Add
             </button>
