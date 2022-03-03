@@ -139,7 +139,7 @@ function handleTouchEnd(event, item) {
             @dragover.prevent
             id="dropzone3"
         >
-            <h2 class="font-bold mb-4">Finish</h2>
+            <h2 class="font-bold mb-4">✅ Finish</h2>
             <TodoItem
                 :item="item"
                 v-for="item in finish"
