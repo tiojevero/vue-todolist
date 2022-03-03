@@ -8,9 +8,18 @@
 | Bundler          | Vite       |
 
 ### How to run
-```bash:
+```bash
+  # npm 
+  npm install
+  npm run dev
+  
+  # pnpm 
   pnpm install
   pnpm run dev
+  
+  # yarn 
+  yarn install
+  yarn run dev
 ```
 
 ### Demo
