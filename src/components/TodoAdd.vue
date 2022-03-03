@@ -6,12 +6,12 @@ import VueFeather from "vue-feather";
 defineProps({
     list: Number,
 });
-const showForm = ref(false);
+const showFormAdd = ref(false);
 const title = ref("");
 const store = useStore();
 
-function toggleForm() {
-    showForm.value = !showForm.value;
+function toggleFormAdd() {
+    showFormAdd.value = !showFormAdd.value;
 }
 function addItem(list) {
     const payload = {
@@ -20,15 +20,15 @@ function addItem(list) {
     };
     store.commit("ADD_ITEM", payload);
     title.value = "";
-    toggleForm();
+    toggleFormAdd();
 }
 </script>
 
 <template>
     <button
         class="bg-gray-100 hover:bg-gray-200 text-gray-600 flex justify-center font-medium rounded-lg px-4 py-2 mt-5 w-full"
-        @click="toggleForm"
-        v-if="!showForm"
+        @click="toggleFormAdd"
+        v-if="!showFormAdd"
     >
         <vue-feather
             type="plus"
@@ -37,7 +37,7 @@ function addItem(list) {
         ></vue-feather>
         Add Item
     </button>
-    <div class="relative mt-5" v-if="showForm">
+    <div class="relative mt-5" v-if="showFormAdd">
         <input
             type="text"
             placeholder="Type item title here"
@@ -49,7 +49,7 @@ function addItem(list) {
         <div class="flex justify-end mt-2">
             <button
                 class="bg-gray-100 hover:bg-gray-200 text-gray-500 font-semibold rounded-lg px-4 py-2 mr-2"
-                @click="toggleForm"
+                @click="toggleFormAdd"
             >
                 Cancel
             </button>

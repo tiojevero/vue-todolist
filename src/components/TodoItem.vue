@@ -9,7 +9,7 @@ defineProps({
 
 const store = useStore();
 
-const showForm = ref(false);
+const showFormEdit = ref(false);
 const title = ref("");
 
 const pageX = ref(0);
@@ -25,19 +25,22 @@ function startDrag(event, item) {
 }
 
 function handleTouchMove(event) {
-    if (event.target.localName !== "span") {
+    if (event.target.classList[0] === "rounded-lg") {
         const touchLocation = event.targetTouches[0];
         pageX.value = touchLocation.pageX;
         pageY.value = touchLocation.pageY;
         event.target.style.position = "absolute";
-        event.target.style.width = "16rem";
+        event.target.style.width = "18rem";
         event.target.style.top = pageY.value - 50 + "px";
         console.log(pageY.value);
         console.log(event);
     }
 }
 
-function handleTouchEnd(item) {
+function handleTouchEnd(event, item) {
+    event.target.style.position = "static";
+    event.target.style.width = "100%";
+
     const dropzone1El = document.querySelector("#dropzone1");
     const dropzone2El = document.querySelector("#dropzone2");
     const dropzone3El = document.querySelector("#dropzone3");
@@ -78,8 +81,8 @@ function handleTouchEnd(item) {
     }
 }
 
-function toggleForm(titleName) {
-    showForm.value = !showForm.value;
+function toggleFormEdit(titleName) {
+    showFormEdit.value = !showFormEdit.value;
     title.value = titleName;
 }
 
@@ -89,7 +92,7 @@ function editItem(id) {
         title: title.value,
     };
     store.commit("EDIT_ITEM", payload);
-    toggleForm();
+    toggleFormEdit();
 }
 
 function removeItem(id) {
@@ -99,17 +102,15 @@ function removeItem(id) {
 
 <template>
     <div
-        :class="`rounded-lg overflow-hidden border bg-white flex justify-between px-3 py-2 mb-2 cursor-grab touch-none overscroll-y-contain ${
-            item.list === 3 ? 'line-through text-gray-600' : ''
-        }`"
+        class="rounded-lg overflow-hidden border bg-white flex justify-between px-3 py-2 mb-2 cursor-grab touch-none overscroll-y-contain"
         v-for="item in items"
         :key="item.id"
         draggable="true"
         @dragstart="startDrag($event, item)"
         @touchmove="handleTouchMove($event)"
-        @touchend="handleTouchEnd(item)"
+        @touchend="handleTouchEnd($event, item)"
     >
-        <div class="flex w-full" v-if="showForm">
+        <div class="flex w-full" v-if="showFormEdit">
             <input
                 type="text"
                 class="bg-gray-100 border focus:border-blue-500 rounded outline-none px-2 mr-2 w-full"
@@ -125,21 +126,26 @@ function removeItem(id) {
                 Save
             </button>
         </div>
-        <span class="self-center" v-if="!showForm">
+        <span
+            :class="`self-center ${
+                item.list === 3 ? 'line-through text-gray-600' : ''
+            }`"
+            v-if="!showFormEdit"
+        >
             {{ item.title }}
         </span>
-        <div class="flex gap-2" v-if="!showForm">
+        <div class="flex gap-2" v-if="!showFormEdit">
             <button
                 class="pointer flex text-gray-500 hover:bg-blue-50 hover:text-blue-500 rounded p-1"
-                @click="toggleForm(item.title)"
+                @click="toggleFormEdit(item.title)"
             >
-                <vue-feather type="edit" size="16px"></vue-feather>
+                <vue-feather type="edit" size="18px"></vue-feather>
             </button>
             <button
                 class="pointer flex text-gray-500 hover:bg-red-50 hover:text-red-500 rounded p-1"
                 @click="removeItem(item.id)"
             >
-                <vue-feather type="trash-2" size="16px"></vue-feather>
+                <vue-feather type="trash-2" size="18px"></vue-feather>
             </button>
         </div>
     </div>
