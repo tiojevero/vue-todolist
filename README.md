@@ -18,7 +18,7 @@
   pnpm run dev
   
   # yarn 
-  yarn install
+  yarn
   yarn run dev
 ```
 
