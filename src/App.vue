@@ -5,5 +5,9 @@ import TodoList from "./components/TodoList.vue";
 </script>
 
 <template>
-    <TodoList />
+    <div class="h-screen bg-gray-200 py-5">
+        <div class="container mx-auto">
+            <TodoList />
+        </div>
+    </div>
 </template>
