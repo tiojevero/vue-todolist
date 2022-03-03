@@ -32,6 +32,7 @@ function onDrop(event, list) {
             @drop="onDrop($event, 1)"
             @dragenter.prevent
             @dragover.prevent
+            id="dropzone1"
         >
             <h2 class="font-bold mb-4">📝 To Do</h2>
             <TodoItem :items="todos" />
@@ -42,6 +43,7 @@ function onDrop(event, list) {
             @drop="onDrop($event, 2)"
             @dragenter.prevent
             @dragover.prevent
+            id="dropzone2"
         >
             <h2 class="font-bold mb-4">🚀 On Progress</h2>
             <TodoItem :items="progress" />
@@ -52,6 +54,7 @@ function onDrop(event, list) {
             @drop="onDrop($event, 3)"
             @dragenter.prevent
             @dragover.prevent
+            id="dropzone3"
         >
             <h2 class="font-bold mb-4">✅ Finish</h2>
             <TodoItem :items="finish" />

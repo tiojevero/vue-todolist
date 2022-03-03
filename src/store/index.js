@@ -8,6 +8,7 @@ const store = createStore({
     },
     mutations: {
         START_DRAG(state, payload) {
+            console.log(payload);
             payload.event.dataTransfer.dropEffect = "move";
             payload.event.dataTransfer.effectAllowed = "move";
             payload.event.dataTransfer.setData("itemID", payload.item.id);
@@ -15,6 +16,10 @@ const store = createStore({
         ON_DROP(state, payload) {
             const itemID = payload.event.dataTransfer.getData("itemID");
             const item = state.items.find((item) => item.id == itemID);
+            item.list = payload.list;
+        },
+        CHANGE_LIST(state, payload) {
+            const item = state.items.find((item) => item.id == payload.item.id);
             item.list = payload.list;
         },
         REMOVE_ITEM(state, id) {
