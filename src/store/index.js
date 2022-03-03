@@ -3,13 +3,7 @@ import { createStore } from "vuex";
 const store = createStore({
     state() {
         return {
-            items: [
-                {
-                    id: 0,
-                    title: "test",
-                    list: 1,
-                },
-            ],
+            items: [],
         };
     },
     mutations: {
