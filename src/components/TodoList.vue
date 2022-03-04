@@ -93,7 +93,7 @@ function handleTouchEnd(event, item) {
 </script>
 
 <template>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
         <div
             class="rounded-xl bg-white p-5 h-fit"
             @drop="onDrop($event, 1)"

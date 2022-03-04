@@ -61,13 +61,13 @@ function removeItem(id) {
         </span>
         <div class="flex gap-2" v-if="!showFormEdit">
             <button
-                class="pointer flex text-gray-500 hover:bg-blue-50 hover:text-blue-500 rounded p-1"
+                class="pointer flex text-gray-500 hover:bg-blue-50 hover:text-blue-500 rounded p-1 h-fit"
                 @click="toggleFormEdit(item.title)"
             >
                 <vue-feather type="edit" size="18px"></vue-feather>
             </button>
             <button
-                class="pointer flex text-gray-500 hover:bg-red-50 hover:text-red-500 rounded p-1"
+                class="pointer flex text-gray-500 hover:bg-red-50 hover:text-red-500 rounded p-1 h-fit"
                 @click="removeItem(item.id)"
             >
                 <vue-feather type="trash-2" size="18px"></vue-feather>
