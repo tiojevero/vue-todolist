@@ -42,6 +42,9 @@ const store = createStore({
             });
             state.items.splice(itemIndex, 1);
         },
+        REPLACE_ITEMS(state, payload) {
+            state.items = payload;
+        },
     },
 });
 

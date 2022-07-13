@@ -1,10 +1,12 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, watch, onBeforeMount } from "vue";
 import { useStore } from "vuex";
 import TodoItem from "./TodoItem.vue";
 import TodoAdd from "./TodoAdd.vue";
 
 const store = useStore();
+
+const allItem = computed(() => store.state.items);
 
 const todos = computed(() =>
     store.state.items.filter((item) => item.list === 1)
@@ -14,6 +16,21 @@ const progress = computed(() =>
 );
 const finish = computed(() =>
     store.state.items.filter((item) => item.list === 3)
+);
+
+onBeforeMount(() => {
+    if (localStorage.items) {
+        store.commit("REPLACE_ITEMS", JSON.parse(localStorage.items));
+    }
+});
+
+watch(
+    allItem,
+    () => {
+        const stringifyItems = JSON.stringify(store.state.items);
+        localStorage.items = stringifyItems;
+    },
+    { deep: true }
 );
 
 const pageX = ref(0);
@@ -93,7 +110,7 @@ function handleTouchEnd(event, item) {
 </script>
 
 <template>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-12">
         <div
             class="rounded-xl bg-white p-5 h-fit"
             @drop="onDrop($event, 1)"
