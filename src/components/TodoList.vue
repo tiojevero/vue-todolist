@@ -1,10 +1,12 @@
 <script setup>
-import { ref, computed, watch, onMounted } from "vue";
+import { ref, computed, watch, onBeforeMount } from "vue";
 import { useStore } from "vuex";
 import TodoItem from "./TodoItem.vue";
 import TodoAdd from "./TodoAdd.vue";
 
 const store = useStore();
+
+const allItem = computed(() => store.state.items);
 
 const todos = computed(() =>
     store.state.items.filter((item) => item.list === 1)
@@ -16,10 +18,20 @@ const finish = computed(() =>
     store.state.items.filter((item) => item.list === 3)
 );
 
-watch(store.state.items, () => {
-    const stringifyItems = JSON.stringify(store.state.items);
-    localStorage.items = stringifyItems;
+onBeforeMount(() => {
+    if (localStorage.items) {
+        store.commit("REPLACE_ITEMS", JSON.parse(localStorage.items));
+    }
 });
+
+watch(
+    allItem,
+    () => {
+        const stringifyItems = JSON.stringify(store.state.items);
+        localStorage.items = stringifyItems;
+    },
+    { deep: true }
+);
 
 const pageX = ref(0);
 const pageY = ref(0);
