@@ -1,5 +1,4 @@
 # Vue Todo List with Drag & Drop
-Temporary Todo (using Vuex)
 
 ### Stack
 | JS Framework     | Vue 3      |
