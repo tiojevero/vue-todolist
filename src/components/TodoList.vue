@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import { useStore } from "vuex";
 import TodoItem from "./TodoItem.vue";
 import TodoAdd from "./TodoAdd.vue";
@@ -15,6 +15,11 @@ const progress = computed(() =>
 const finish = computed(() =>
     store.state.items.filter((item) => item.list === 3)
 );
+
+watch(store.state.items, () => {
+    const stringifyItems = JSON.stringify(store.state.items);
+    localStorage.items = stringifyItems;
+});
 
 const pageX = ref(0);
 const pageY = ref(0);
@@ -93,7 +98,7 @@ function handleTouchEnd(event, item) {
 </script>
 
 <template>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-12">
         <div
             class="rounded-xl bg-white p-5 h-fit"
             @drop="onDrop($event, 1)"
